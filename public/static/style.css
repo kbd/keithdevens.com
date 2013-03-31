@@ -1,0 +1,139 @@
+html {
+	font-size: 62.5%; /*http://www.betaversion.org/~stefano/linotype/news/169/*/
+}
+#page {
+	margin: 0 auto;
+}
+.prevnext { width: 100% }
+body{
+	width: 750px;
+	margin: 3em;
+	font-family: "Helvetica Neue", Helvetica, Verdana, Arial;
+}
+h1 {
+	margin: 0;
+	margin-bottom: 1em;
+}
+h2 {
+	margin: 0;
+	margin-bottom: 1em;
+	margin-top: .75em;
+	border-bottom: 1px solid #ccc;
+	font-family: "Courier New";
+	letter-spacing: .1em;
+	font-size: 12pt;
+}
+.breadcrumbs{
+	font-size: 10pt;
+}
+.weblog h2{
+	text-align: right;
+}
+h3 {
+	font-family: "Trebuchet MS", Arial, sans-serif
+}
+.comment-time{
+	font-size: smaller
+}
+.weblog_recent_comment{border: dotted thin black}
+/* specific style for linkblog entries */
+.linkblog {
+	margin-top: 1em;
+	font-size: smaller;
+}
+.linkblog h3 {
+	display: none;
+}
+.linkblog div.entry_footer, .linkblog p {
+	display: inline;
+}
+.linkblog .modified_time, .linkblog .timezone{
+	display: none;
+}
+.linkblog .separator {
+	display: none;
+}
+/* end of linkblog styles */
+
+.timezone {
+	font-size: smaller;
+	color: #999;
+}
+.modified_time {
+	font-size: smaller;
+}
+a {
+	text-decoration: none
+}
+#content {
+	width: 500px;
+	font-size: 14px;
+	color: #333;
+	float: left;
+	border-right: 1px dashed #ccc;
+	padding-right: 1em;
+}
+#sidebar {
+	float: right;
+	text-align: left;
+	width: 220px;
+}
+#sidebar ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.tags {
+	font-size: smaller;
+}
+#footer {
+	clear: both;
+	background-color: #ccc;
+}
+.calendar th{
+	color: green;
+	font-size: 8pt;
+	text-align: center;
+	font-weight: normal;
+}
+img.gravatar {
+	float: left;
+	margin-right: 5px;
+}
+.weblog_comment_form {
+	width: 100%;
+	font-size: smaller;
+}
+.weblog_comment_form td {
+	font-size: smaller;
+}
+.weblog_comment_form input{
+	width: 155px;
+}
+.weblog_comment_form textarea{
+	width: 99%;
+}
+.pagination a{
+	border: thin 1px solid;
+	margin-left: .5em;
+	margin-right: .5em;
+}
+.pagination strong{
+	margin-left: .5em;
+	margin-right: .5em;
+}
+.flat_list{
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 1em;
+	text-indent: -1em;
+}
+.calendar td {
+	text-align: center
+}
+.error {
+	color: red;
+}
+.success {
+	color: green;
+}
