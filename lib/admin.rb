@@ -1,7 +1,6 @@
 require 'set'
 require 'json'
 
-require 'erector'
 require 'pony'
 
 require './lib/models'
@@ -10,14 +9,12 @@ require './lib/forms'
 require './templates/base'
 
 class Admin < Cuba
-  include Erector::Mixin
-
   def logged_in #duplicates the one in BaseTemplate... DRY them somehow
     session[:logged_in]
   end
 
   def admin(&block)
-    render BaseTemplate, content: erector(&block)
+    render BaseTemplate, content: block
   end
 end
 
@@ -26,7 +23,7 @@ Admin.define do
     admin do
       if logged_in
         ul {
-          li {a 'Entry', href: '/admin/Entry'}
+          li {a 'Entry',  href: '/admin/Entry'}
           li {a 'Pages',  href: '/admin/Page'}
           li {a 'Quotes', href: '/admin/Quote'}
           li {a 'Tags',   href: '/admin/Tag'}
@@ -42,16 +39,14 @@ Admin.define do
 
   on 'login' do
     if req.post?
-      admin do
-        if tokenexists #protect against someone writing a script to spam me with login tokens
-          p "Token already sent"
-        else
-          token = gettoken
-          uri = env['REQUEST_URI']
-          recordtoken($EMAIL, token)
-          Pony.mail(to: $EMAIL, subject: 'login token', body: "#{uri}?token=#{token}")
-          p "Sent token"
-        end
+      if tokenexists #protect against someone writing a script to spam me with login tokens
+        admin { p "Token already sent" }
+      else
+        token = gettoken
+        uri = env['REQUEST_URI']
+        recordtoken($EMAIL, token)
+        Pony.mail(to: $EMAIL, subject: 'login token', body: "#{uri}?token=#{token}")
+        admin { p "Sent token" }
       end
     end
 
@@ -79,20 +74,16 @@ Admin.define do
     entry = req['id'] ? EntryForm[req['id']] : EntryForm.new(allow_comments: true, title: '')
     form = FormHelper.new('entry', entry)
 
+    r = req #so the request is visible within the block
     admin do
-      if req.post?
-        if form.process(req)
+      if r.post?
+        if form.process(r)
           h3.success "Successfully saved"
         end
       end
 
       form.form { |f|
-        if form.has_errors
-          h3.error "Your form has errors"
-          form.errors.each{ |e| p.error e }
-          form.field_errors.each{ |f,e| p.error "#{f} - #{e}" }
-        end
-        
+        display_form_errors form
         table.entry_form {
           tr {
             td { f.label :title, 'Title' }

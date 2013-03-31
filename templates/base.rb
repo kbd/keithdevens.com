@@ -37,9 +37,13 @@ class BaseTemplate < Erector::Widgets::Page
 
   #override in subclasses. called from body_content, which is a special Erector method
   def main
-    text! @content
+    if @content.is_a? Proc
+      instance_exec &@content
+    else
+      text! @content
+    end
   end
-  
+
   def sidebar
   end
 
@@ -117,17 +121,14 @@ class BaseTemplate < Erector::Widgets::Page
       }
     end
   end
-end
-__END__
 
-@def printFormErrors(form)
-  % if form.errors 
-    <ul class="errors">
-      %# for field_name, field_errors in form.errors.items() if field_errors 
-        %# field_errors.each do |error|
-          <li>$form[field_name].label: $error</li>
-        %# endfor
-      %# endfor 
-    </ul>
-  %end
-@end
+  def display_form_errors(form)
+    return if !form.has_errors
+
+    h3.error "Your form has errors"
+    form.errors.each{ |e| p.error e }
+    ul.error {
+      form.field_errors.each_value{ |e| li e }
+    }
+  end
+end

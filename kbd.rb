@@ -111,8 +111,8 @@ module Extensions
   end
 
   def not_found(str)
-  res.status = 404
-  res.write str
+    res.status = 404
+    res.write str
   end
 
   def canonical(uri)
