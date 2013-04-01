@@ -2,7 +2,7 @@
 sudo -b /usr/local/mysql/bin/mysqld_safe
 
 #start redis in background
-redis-server redis.conf &
+redis-server conf/redis.conf &
 
 #start website, ctrl+c to stop test server
 #(which will cause everything else to quit)
