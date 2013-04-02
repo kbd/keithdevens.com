@@ -41,6 +41,8 @@ end
 
 def localize_datetime(utc, local)
   #Return datetime with correct time zone based on the difference between utc and local
+  raise "UTC value is nil" if utc.nil?
+  raise "local value is nil" if local.nil?
   utc, local = utc.to_datetime, local.to_datetime #both will have time zone of utc
   utc.new_offset(local - utc) #subtract to get the time zone offset
 end
