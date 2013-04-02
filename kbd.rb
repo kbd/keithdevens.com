@@ -124,6 +124,8 @@ module Extensions
   end
 end
 
+ReversedEntries = Entry.reverse
+
 Cuba.plugin Extensions
 
 Cuba.define do
@@ -133,8 +135,6 @@ Cuba.define do
     on (root) { found '/weblog' }
 
     on 'weblog' do
-      ReversedEntries = Entry.reverse
-
       @breadcrumbs = [Link.new("Keith Devens", "/weblog")]
       @recent_comments = Comment.recent_by_entry.all
 
